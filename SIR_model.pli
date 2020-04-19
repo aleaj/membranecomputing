@@ -1,0 +1,26 @@
+/* Program that reproduces SIR model results for pandemic propagation */
+
+@model<probabilistic>
+
+def sir(ns,ni,beta,gamma){
+	/* initial multiplicity for Susceptibles (ns) and Infected (ni). */
+	/* propagation parameters (beta, gamma) */
+
+	@mu = [ ]'1;
+
+	@ms(1) += s*ns,i*ni;
+
+	[s,i --> i,i]'1::beta;
+	[s,i --> s,i]'1::(1-beta);
+
+	[i  --> r ]'1::gamma;
+	[i  --> i ]'1::(1-gamma);
+} 
+
+def main(){
+	
+	call sir(1000000,20,0.3,0.1);
+
+
+}
+
